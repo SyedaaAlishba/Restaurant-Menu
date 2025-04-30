@@ -1,0 +1,109 @@
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main {
+
+    // Method to calculate discount
+    public static int discount(int t, int d){
+        int f = t * d / 100;  // Formula: (total * discount%) / 100
+        return f;
+    }
+
+    // Method to write total amount to a file
+    public static void print(int a){
+        try {
+            // Note: File path contains a typo ("menue.txt.txt")
+            FileWriter writer = new FileWriter("C:\\Users\\syeda\\OneDrive\\Documents\\menue.txt.txt");
+            writer.write("Your total amount is " + a);  // Write total to file
+            System.out.println("Successfully writen");  // Confirmation message
+            writer.close();  // Close the file writer
+        } catch (IOException e) {
+            System.out.print("Error");  // Error handling
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);  // Scanner for user input
+        System.out.println("RESTAURANT MENU!");
+
+        // Menu items and prices
+        String[] dish = {"PASTA", "SALMON", "SPAGHETTI", "BEEF STEAK", "HANDI"};
+        int[] p = {50, 60, 80, 70, 90};
+
+        // Display menu
+        System.out.print("DISHES " + " \t\t\t   PRICE");
+        for (int i = 0; i < dish.length; i++) {
+            System.out.printf(" %n%-15s %10d ", dish[i], p[i]);  // Formatted output
+        }
+
+        System.out.println();
+        System.out.println("CHOOSE YOUR DISHES (1-5)");
+        int choice = sc.nextInt();  // User selects dishes
+        int total = 0;
+
+        // Process user choices
+        while (choice > 0) {
+            if (choice == 1) {
+                System.out.println("PASTA");
+                total += p[0];  // Add pasta price to total
+            }
+            if (choice == 2) {
+                System.out.println("SALMON");
+                total += p[1];  // Add salmon price to total
+            }
+            if (choice == 3) {
+                System.out.println("SPAGHETTI");
+                total += p[2];  // Add spaghetti price to total
+            }
+            if (choice == 4) {
+                System.out.println("BEEF STEAK");
+                total += p[3];  // Add beef steak price to total
+            }
+            if (choice == 5) {
+                System.out.println("HANDI");
+                total += p[4];  // Add handi price to total
+            }
+            System.out.println("TO STOP CHOOSING ENTER 0");
+            choice = sc.nextInt();  // Continue or exit loop
+        }
+
+        int dis = 0;  // Discount amount
+        int fin = 0;  // Final amount after discount
+
+        System.out.println("Your current total is " + total);
+        System.out.println("CHOOSE PAYMENT CARD");
+        System.out.println("1)NAYAPAY  2)SADAPAY  3)ALLIED BANK");
+        System.out.println("\t DISCOUNT OFFERS");
+        System.out.println(" On NAYAPAY we have 10% discount \n On SADAPAY we have 5% discount \n On ALLIED BANK we have 20% discount");
+
+        System.out.println("SELECT THE PAYMENT METHOD");
+        int card = sc.nextInt();  // User selects payment method
+
+        // Apply discounts based on payment method
+        switch (card) {
+            case 1:
+                System.out.println("YOU GOT 10% discount");
+                dis = discount(total, 10);  // Calculate 10% discount
+                fin = total - dis;           // Final amount after discount
+                print(fin);                  // Save to file
+                System.out.println("NOW YOUR TOTAL is " + fin);
+                break;
+            case 2:
+                System.out.println("YOU GOT 5% discount");
+                dis = discount(total, 5);   // Calculate 5% discount
+                fin = total - dis;
+                print(fin);
+                System.out.println("NOW YOUR TOTAL is " + fin);
+                break;
+            case 3:
+                System.out.println("YOU GOT 20% discount");
+                dis = discount(total, 20);  // Calculate 20% discount
+                fin = total - dis;
+                print(fin);
+                System.out.println("NOW YOUR TOTAL is " + fin);
+                break;
+        }
+    }
+}
